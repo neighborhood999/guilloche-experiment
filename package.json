@@ -1,0 +1,26 @@
+{
+  "name": "guilloches-experiment",
+  "version": "0.0.1",
+  "description": "Guilloches Experiment",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src"
+  },
+  "repository": "https://github.com/neighborhood999/guilloches-experiment.git",
+  "author": "Peng Jie <bivinity.pengzjie@gmail.com>",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.12.0"
+  },
+  "license": "MIT"
+}
