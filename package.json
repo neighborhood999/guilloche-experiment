@@ -4,7 +4,7 @@
   "description": "Guilloches Experiment",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint index.js"
   },
   "repository": "https://github.com/neighborhood999/guilloches-experiment.git",
   "author": "Peng Jie <bivinity.pengzjie@gmail.com>",
