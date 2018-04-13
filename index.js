@@ -1,3 +1,5 @@
+const colorUtils = require('./utils');
+
 class Guilloches {
   constructor(properties = {}) {
     this.amplitude = properties.amplitude || 3.8;
@@ -19,6 +21,23 @@ class Guilloches {
     this.graphics = this.canvas.getContext('2d');
 
     return this;
+  }
+
+  setColorPalette() {
+    const [color1, color2] = this.colorPalette;
+
+    const c1 = colorUtils.hexStringToInt(color1);
+    const c2 = colorUtils.hexStringToInt(color2);
+    const colorPalette = colorUtils.blendArray(
+      c1,
+      c2,
+      this.steps / this.colorCycle - 1,
+      false
+    );
+
+    return colorPalette.concat(
+      colorUtils.blendArray(c1, c2, this.steps / this.colorCycle - 1, false)
+    );
   }
 
   drawGuilloches() {
