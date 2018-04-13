@@ -35,9 +35,7 @@ class Guilloches {
       false
     );
 
-    return colorPalette.concat(
-      colorUtils.blendArray(c1, c2, this.steps / this.colorCycle - 1, false)
-    );
+    return colorPalette;
   }
 
   drawGuilloches() {
