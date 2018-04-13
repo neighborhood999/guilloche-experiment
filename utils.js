@@ -38,16 +38,15 @@ const colorUtils = {
 
     return this.toHex(r, g, b, a);
   },
-  blendArray: (c1, c2, n, last) => {
+  blendArray: (c1, c2, n, last = false) => {
     const p = 1 / (n + 1);
-    const list = Array.from(new Array(n + 1), (x, i) => i);
-    const nextList = list.reduce((acc, x) => this.blen(c1, c2, i * p), []);
+    const list = Array.from(new Array(Math.floor(n) + 1), (x, i) => i);
+    const bA = list.reduce((acc, x) => {
+      acc.push(this.blend(c1, c2, x * p));
+      return [...acc];
+    }, []);
 
-    if (last) {
-      nextList.push(c2);
-    }
-
-    return nextList;
+    return last === true ? [...bA, c2] : bA;
   }
 };
 

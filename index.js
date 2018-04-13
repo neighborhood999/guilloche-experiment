@@ -10,6 +10,7 @@ class Guilloches {
     this.radius = properties.radius || -31.24809997502848;
     this.opacity = properties.opacity || 1;
     this.backgroundcolor = properties.backgroundcolor || '#04181b';
+    this.isTransparent = properties.isTransparent || false;
     this.lineWidth = properties.lineWidth || 1;
     this.lineHeight = properties.lineHeight || 1;
     this.colorCycle = properties.colorCycle || 73.95122715898269;
