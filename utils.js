@@ -14,7 +14,7 @@ const colorUtils = {
     return `#${integer.toString(16).toUpperCase()}`;
   },
   toHex: (r, g, b, a) => {
-    if (a == undefined) a = 0xff;
+    if (a === undefined) a = 0xff;
     if (r > 0xff) r = 0xff;
     if (g > 0xff) g = 0xff;
     if (b > 0xff) b = 0xff;
@@ -23,8 +23,8 @@ const colorUtils = {
     return (a << 24) | (r << 16) | (g << 8) | b;
   },
   blend: (c1, c2, p, bc) => {
-    if (p == undefined) p = 0.5;
-    if (bc == undefined) bc = 0xffffffff;
+    if (p === undefined) p = 0.5;
+    if (bc === undefined) bc = 0xffffffff;
     if (p >= 1) return c2;
     if (p <= 0) return c1;
 
@@ -32,7 +32,7 @@ const colorUtils = {
     const g = this.green(c1) + (this.green(c2) - this.green(c1)) * p;
     const b = this.blue(c1) + (this.blue(c2) - this.blue(c1)) * p;
     const a =
-      c1 == bc
+      c1 === bc
         ? this.alpha(c2)
         : Math.min(this.alpha(c1) + this.alpha(c2), 255);
 

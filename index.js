@@ -1,4 +1,4 @@
-const colorUtils = require('./utils');
+const { colorUtils } = require('./utils');
 
 class Guilloches {
   constructor(properties = {}) {
