@@ -1,6 +1,6 @@
 const { colorUtils } = require('./utils');
 
-class Guilloches {
+class Guilloche {
   constructor(properties = {}) {
     this.amplitude = properties.amplitude || 3.8;
     this.steps = properties.steps || 590;
@@ -13,6 +13,7 @@ class Guilloches {
     this.isTransparent = properties.isTransparent || false;
     this.lineWidth = properties.lineWidth || 1;
     this.lineHeight = properties.lineHeight || 1;
+    this.sectionLength = properties.sectionLength || 10;
     this.colorCycle = properties.colorCycle || 73.95122715898269;
     this.colorPalette = properties.colorPalette || ['#dc82a8', '#ba2129'];
   }
