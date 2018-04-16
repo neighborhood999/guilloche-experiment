@@ -9,7 +9,7 @@ class Guilloche {
     this.r = properties.r || 0.3589590923549947;
     this.radius = properties.radius || -31.24809997502848;
     this.opacity = properties.opacity || 1;
-    this.backgroundcolor = properties.backgroundcolor || '#04181b';
+    this.backgroundColor = properties.backgroundColor || '#04181b';
     this.isTransparent = properties.isTransparent || false;
     this.lineWidth = properties.lineWidth || 1;
     this.lineHeight = properties.lineHeight || 1;
@@ -40,7 +40,98 @@ class Guilloche {
     return colorPalette;
   }
 
-  drawGuilloches() {
-    // TODO
+  draw() {
+    const canvas = this.canvas;
+    const graphics = this.graphics;
+    const palette = this.setColorPalette();
+    const countPalette = palette.length;
+    const [color1, color2] = this.colorPalette;
+
+    const c1 = colorUtils.hexStringToInt(color1);
+    const c2 = colorUtils.hexStringToInt(color2);
+
+    if (this.isTransparent) {
+      graphics.clearRect(0, 0, canvas.width, canvas.height);
+    } else {
+      graphics.fillStyle = this.backgroundColor;
+      graphics.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    const thetaStep = 2 * Math.PI / this.steps;
+    const s = (this.R + this.r) / this.r;
+    const rR = this.r + this.R;
+    const rp = this.r + this.radius;
+    const offsetX = canvas.width / 2;
+    const offsetY = canvas.height / 2;
+    let sl = 0;
+    let θ = 0;
+    let maxX = 0;
+    let maxY = 0;
+    let x, y, ox, oy;
+    let svgPaths = '';
+    let svgPoints = '';
+
+    for (let t = 0; t <= this.steps; t++) {
+      x =
+        rR * Math.cos(this.multiplier * θ) +
+        rp * Math.cos(s * this.multiplier * θ);
+      y =
+        rR * Math.sin(this.multiplier * θ) +
+        rp * Math.sin(s * this.multiplier * θ);
+
+      x *= this.amplitude;
+      y *= this.amplitude;
+
+      x += offsetX;
+      y += offsetY;
+      x = parseInt(x);
+      y = parseInt(y);
+
+      if (sl === 0) {
+        const color =
+          c1 === c2 || countPalette < 2 ? c1 : palette[t % countPalette];
+
+        graphics.beginPath();
+
+        graphics.strokeStyle = colorUtils.hexIntToString(color);
+        graphics.lineWidth = this.lineWidth;
+        graphics.lineCap = 'butt';
+        graphics.lineJoin = 'round';
+        graphics.globalAlpha = this.opacity;
+
+        if (t === 0) {
+          svgPoints += ` M ${x} ${y}`;
+          graphics.moveTo(x, y);
+        } else {
+          graphics.moveTo(ox, oy);
+          svgPoints += ` M ${ox} ${oy}`;
+          graphics.lineTo(x, y);
+          svgPoints += ` L ${x} ${y}`;
+        }
+      } else {
+        svgPoints += ` L ${x} ${y}`;
+        graphics.lineTo(x, y);
+      }
+
+      if (maxX < x) maxX = x;
+      if (maxY < y) maxY = y;
+
+      ox = x;
+      oy = y;
+      sl++;
+      θ += thetaStep;
+
+      if (sl === this.sectionLength) {
+        graphics.stroke();
+
+        svgPaths += `<path d="${svgPoints}" fill="none" stroke="${
+          graphics.strokeStyle
+        }" stroke-linejoin="bevel" stroke-linecap="butt" stroke-width="${
+          this.lineWidth
+        }" opacity="${this.opacity}" />`;
+        sl = 0;
+        svgPoints = '';
+      }
+    }
   }
 }
