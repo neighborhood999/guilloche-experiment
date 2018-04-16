@@ -135,3 +135,5 @@ class Guilloche {
     }
   }
 }
+
+module.exports = Guilloche;
