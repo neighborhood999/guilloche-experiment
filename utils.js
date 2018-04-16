@@ -1,27 +1,27 @@
 const colorUtils = {
-  red: function(color) {
+  red(color) {
     return (color >> 16) & 0xff;
   },
-  green: function(color) {
+  green(color) {
     return (color >> 8) & 0xff;
   },
-  blue: function(color) {
+  blue(color) {
     return color & 0xff;
   },
-  alpha: function(color) {
+  alpha(color) {
     return (color >> 24) & 0xff;
   },
-  hexStringToInt: function(str) {
+  hexStringToInt(str) {
     return parseInt(str.split('#').join(''), 16);
   },
-  hexIntToString: function(integer) {
+  hexIntToString(integer) {
     if (integer < 0) {
       integer = 0xffffffff + integer + 1;
     }
 
     return `#${integer.toString(16).toUpperCase()}`;
   },
-  toHex: function(r, g, b, a) {
+  toHex(r, g, b, a) {
     if (a === undefined) a = 0xff;
     if (r > 0xff) r = 0xff;
     if (g > 0xff) g = 0xff;
@@ -30,7 +30,7 @@ const colorUtils = {
 
     return (a << 24) | (r << 16) | (g << 8) | b;
   },
-  blend: function(c1, c2, p, bc) {
+  blend(c1, c2, p, bc) {
     if (p === undefined) p = 0.5;
     if (bc === undefined) bc = 0xffffffff;
     if (p >= 1) return c2;
@@ -46,7 +46,7 @@ const colorUtils = {
 
     return this.toHex(r, g, b, a);
   },
-  blendArray: function(c1, c2, n, last = false) {
+  blendArray(c1, c2, n, last = false) {
     const p = 1 / (n + 1);
     const list = Array.from(new Array(Math.floor(n) + 1), (x, i) => i);
     const bA = list.reduce((acc, x) => {
